@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../redux/slices/taskSlice";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 const TaskCard = ({ task, openModal }) => {
   const dispatch = useDispatch();
@@ -19,7 +21,8 @@ const TaskCard = ({ task, openModal }) => {
         cursor: "grab",
         transition: "box-shadow 0.2s ease-in-out",
       }}
-      title="Click to edit"
+      data-tooltip-id={`edit-task-${task.id}`}
+      data-tooltip-content="Click to edit"
     >
       <h6 className="fw-bold text-primary mb-1">{task.title}</h6>
       <p className="text-muted small mb-1">{task.description}</p>
@@ -40,7 +43,8 @@ const TaskCard = ({ task, openModal }) => {
       </div>
       <button
         className="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
-        title="Delete Task"
+        data-tooltip-id={`delete-task-${task.id}`}
+        data-tooltip-content="Delete Task"
         style={{
           width: "24px",
           height: "24px",
@@ -62,6 +66,9 @@ const TaskCard = ({ task, openModal }) => {
       >
         &#10005;
       </button>
+
+      <Tooltip id={`edit-task-${task.id}`} className="z-100" place="right" effect="solid" />
+      <Tooltip id={`delete-task-${task.id}`} place="top" effect="solid" />
     </div>
   );
 };
